@@ -2,7 +2,6 @@ use std::collections::HashSet;
 use std::fs;
 use std::iter::Iterator;
 
-
 fn preprocess(input: &String) -> Vec<Vec<u32>> {
     input
         .lines()
@@ -63,7 +62,7 @@ fn count_safe_reports_dampened(reports: &Vec<Vec<u32>>) -> u32 {
         .filter(|report| {
             is_safe(report) || {
                 // check with dampening
-                (0..(report.len() - 1)).any(|index: usize| {
+                (0..report.len()).any(|index: usize| {
                     let mut new_report = report.to_vec();
                     new_report.remove(index.try_into().unwrap());
                     is_safe(&new_report)
@@ -78,7 +77,10 @@ fn count_safe_reports_dampened(reports: &Vec<Vec<u32>>) -> u32 {
 fn main() {
     let input = fs::read_to_string("inputs/2.txt").unwrap();
     println!("part 1 : {}", count_safe_reports(&preprocess(&input)));
-    println!("part 2 : {}", count_safe_reports_dampened(&preprocess(&input))); // not the correct output
+    println!(
+        "part 2 : {}",
+        count_safe_reports_dampened(&preprocess(&input))
+    ); // not the correct output
 }
 
 #[cfg(test)]
