@@ -5,16 +5,17 @@ use std::fs;
 fn preprocess(input: String) -> Vec<(i32, i32)> {
     let mul_pattern = Regex::new(r"mul\((\d{1,3}),(\d{1,3})\)").unwrap();
     
-
+    
     mul_pattern
         .captures_iter(input.as_str())
         .map(|mul_match| {
             (
                 {
-                    match mul_match.get(0).unwrap().as_str().parse::<i32>() {
-                        Ok(number) => number,
-                        Err(e) => {println!("{:?}", e); panic!("could not parce int")},
-                    }
+                    let a =  mul_match.get(0).unwrap().as_str();
+                    print!("{}",a);
+                    a.parse().unwrap()
+
+                    
                 },
                 mul_match.get(1).unwrap().as_str().parse().unwrap(),
             )
